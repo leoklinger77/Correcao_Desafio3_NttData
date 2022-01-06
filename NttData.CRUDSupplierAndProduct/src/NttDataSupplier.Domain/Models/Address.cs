@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NttDataSupplier.Domain.Tools;
+using System;
 
 namespace NttDataSupplier.Domain.Models
 {
@@ -30,6 +31,13 @@ namespace NttDataSupplier.Domain.Models
         public void SetAddress(string zipCode, string street, string number, string neighborhood, string city, string state,
                         string complement = null, string reference = null)
         {
+            Validation.ValidateIsNullOrEmpty(zipCode, "O cep é obrigatorio");
+            Validation.ValidateIsNullOrEmpty(street, "O logradouro é obrigatorio");
+            Validation.ValidateIsNullOrEmpty(number, "O numero é obrigatorio");
+            Validation.ValidateIsNullOrEmpty(neighborhood, "O bairro é obrigatorio");
+            Validation.ValidateIsNullOrEmpty(city, "A cidade é obrigatoria");
+            Validation.ValidateIsNullOrEmpty(state, "O estado é obrigatorio");
+
             ZipCode = zipCode;
             Street = street;
             Number = number;

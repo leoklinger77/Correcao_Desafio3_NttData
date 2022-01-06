@@ -1,4 +1,5 @@
 ﻿using NttDataSupplier.Domain.Models.enums;
+using NttDataSupplier.Domain.Tools;
 using System;
 
 namespace NttDataSupplier.Domain.Models
@@ -23,6 +24,13 @@ namespace NttDataSupplier.Domain.Models
 
         public void SetPhone(string ddd, string number, PhoneType phoneType)
         {
+            Validation.ValidateIsNullOrEmpty(ddd, "O ddd é obrigatorio");
+            Validation.CharactersValidate(ddd, 2, 2, "O ddd deve conter 2 caracteres");
+            Validation.ValidateIsNullOrEmpty(number, "O número é obrigatorio");
+            Validation.CharactersValidate(number, 9, 8, "O número deve conter entre 8 e 9 caracteres");
+
+            Validation.ValidateIfFalse(phoneType.IsEnum<PhoneType>(), "O tipo de telefone informado é invalido");
+            
             Ddd = ddd;
             Number = number;
             PhoneType = phoneType;

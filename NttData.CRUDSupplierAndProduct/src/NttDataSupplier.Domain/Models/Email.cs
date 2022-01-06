@@ -1,10 +1,12 @@
-﻿using System;
+﻿using NttDataSupplier.Domain.Tools;
+using System;
 
 namespace NttDataSupplier.Domain.Models
 {
     public class Email : Entity
     {
         public Guid SupplierId { get; private set; }
+
         public string EmailAddress { get; private set; }
 
         public Supplier Supplier { get; private set; }
@@ -19,6 +21,7 @@ namespace NttDataSupplier.Domain.Models
 
         public void SetEmail(string value)
         {
+            Validation.ValidateIsNullOrEmpty(value, "O e-mail é obrigatorio");
             EmailAddress = value;
         }
     }

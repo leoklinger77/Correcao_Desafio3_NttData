@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NttDataSupplier.Domain.Models.enums
 {
-    internal class PhoneType
+    public enum PhoneType
     {
     }
 }
