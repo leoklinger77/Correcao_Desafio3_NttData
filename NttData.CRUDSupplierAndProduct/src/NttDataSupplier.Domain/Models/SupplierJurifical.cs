@@ -19,18 +19,17 @@ namespace NttDataSupplier.Domain.Models
 
         public void SetCompanyName(string value)
         {
-            Validation.ValidateIsNullOrEmpty(value, "A Razão Social é obrigatorio.");
+            DomainValidation.ValidateIsNullOrEmpty(value, "A Razão Social é obrigatorio.");
             CompanyName = value;
         }
         public void SetCnpj(string value)
         {
-            Validation.ValidateIsNullOrEmpty(value, "O cnpj é obrigatorio.");
-            Validation.ValidateIfFalse(value.IsCnpj(), "O Cnpj informado é inválido.");
+            DomainValidation.ValidateIsNullOrEmpty(value, "O cnpj é obrigatorio.");            
             Cnpj = value;
         }
         public void SetOpenDate(DateTime value)
         {
-            Validation.ValidateIfTrue(value.Date == DateTime.Now.Date, "A data de abertura não pode ser igual a hoje");
+            DomainValidation.ValidateIfTrue(value.Date == DateTime.Now.Date, "A data de abertura não pode ser igual a hoje");
             OpenDate = value;
         }
     }

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace NttDataSupplier.Domain.Models.enums
+﻿namespace NttDataSupplier.Domain.Models.enums
 {
     public enum PhoneType
     {
+        Celular = 1,
+        Comercial = 2,
+        Fixo = 3
     }
 }

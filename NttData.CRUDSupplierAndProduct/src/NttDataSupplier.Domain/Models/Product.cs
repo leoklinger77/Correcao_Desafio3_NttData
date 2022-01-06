@@ -36,12 +36,12 @@ namespace NttDataSupplier.Domain.Models
 
         public void SetName(string value)
         {
-            Validation.ValidateIsNullOrEmpty(value, "O nome não pode ser nulo ou vazio");
+            DomainValidation.ValidateIsNullOrEmpty(value, "O nome não pode ser nulo ou vazio");
             Name = value;
         }
         public void AddQuantity(int quantity)
         {
-            Validation.ValidateIfTrue(quantity < 0, "A quantidade a ser adicionada não pode ser menor que zero");
+            DomainValidation.ValidateIfTrue(quantity < 0, "A quantidade a ser adicionada não pode ser menor que zero");
             QuantityStock += quantity;
         }
         public void RemoveQuantity(int quantity)
@@ -58,7 +58,7 @@ namespace NttDataSupplier.Domain.Models
         public void SetPriceSales(decimal value)
         {
             //O valor de venda sempre deve ser maior que o preço de compra
-            Validation.ValidateIfTrue(value <= PricePurchase, "O preço de venda não pode ser menor que o preço de compra");
+            DomainValidation.ValidateIfTrue(value <= PricePurchase, "O preço de venda não pode ser menor que o preço de compra");
             PriceSales = value;
         }
         
@@ -74,7 +74,7 @@ namespace NttDataSupplier.Domain.Models
         private void SetPricePurchase(decimal value)
         {
             //O valor de compra não pode ser menor ou igual que zero
-            Validation.ValidateIfTrue(value <= 0, "O preço de compra não pode ser menor ou igual que 0");
+            DomainValidation.ValidateIfTrue(value <= 0, "O preço de compra não pode ser menor ou igual que 0");
             PricePurchase = value;
         }
     }

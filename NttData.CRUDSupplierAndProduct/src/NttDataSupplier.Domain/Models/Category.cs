@@ -19,7 +19,7 @@ namespace NttDataSupplier.Domain.Models
 
         public void SetName(string value)
         {
-            Validation.ValidateIsNullOrEmpty(value, "O nome é obrigatorio");
+            DomainValidation.ValidateIsNullOrEmpty(value, "O nome é obrigatorio");
             Name = value;
         }
     }

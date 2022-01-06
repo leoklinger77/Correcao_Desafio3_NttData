@@ -20,17 +20,17 @@ namespace NttDataSupplier.Domain.Models
 
         public void SetFullName(string value)
         {
-            Validation.ValidateIsNullOrEmpty(value, "O nome é obrigatorio.");
+            DomainValidation.ValidateIsNullOrEmpty(value, "O nome é obrigatorio.");
             FullName = value;
         }
         public void SetCpf(string value)
-        {
-            Validation.ValidateIfFalse(value.IsCpf(), "O Cpf informado é inválido.");
+        {            
+            DomainValidation.ValidateIsNullOrEmpty(value, "O cpf é obrigatorio.");
             Cpf = value;
         }
         public void SetBirthDate(DateTime value)
         {
-            Validation.ValidateIfTrue(value.Date == DateTime.Now.Date, "A data de nascimento não pode ser igual a hoje");
+            DomainValidation.ValidateIfTrue(value.Date == DateTime.Now.Date, "A data de nascimento não pode ser igual a hoje");
             BirthDate = value;
         }
     }

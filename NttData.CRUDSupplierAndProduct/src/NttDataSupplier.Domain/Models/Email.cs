@@ -21,7 +21,7 @@ namespace NttDataSupplier.Domain.Models
 
         public void SetEmail(string value)
         {
-            Validation.ValidateIsNullOrEmpty(value, "O e-mail é obrigatorio");
+            DomainValidation.ValidateIsNullOrEmpty(value, "O e-mail é obrigatorio");
             EmailAddress = value;
         }
     }

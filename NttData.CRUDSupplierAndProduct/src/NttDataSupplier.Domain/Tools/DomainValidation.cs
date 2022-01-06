@@ -1,6 +1,6 @@
 ﻿namespace NttDataSupplier.Domain.Tools
 {
-    public static class Validation
+    public static class DomainValidation
     {
         public static void ValidateIfEqual(object object1, object object2, string message)
         {

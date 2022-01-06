@@ -31,13 +31,13 @@ namespace NttDataSupplier.Domain.Models
 
         public void AddPhone(Phone phone)
         {
-            Validation.ValidateIfTrue(_phones.Count >= 3, "A quantidade máximo de telefones permitidos é 3");
+            DomainValidation.ValidateIfTrue(_phones.Count >= 3, "A quantidade máximo de telefones permitidos é 3");
 
             _phones.Add(phone);
         }
         public void UpdatePhone(string ddd, string phone, PhoneType phoneType)
         {
-            Validation.ValidateIfTrue(PhoneExist(phoneType), $"O tipo {phoneType} informado não existe para ser atualizado");
+            DomainValidation.ValidateIfTrue(PhoneExist(phoneType), $"O tipo {phoneType} informado não existe para ser atualizado");
 
             var phoneExist = _phones.Where(x => x.PhoneType == phoneType).FirstOrDefault();
             phoneExist.SetPhone(ddd, phone, phoneType);
@@ -45,7 +45,7 @@ namespace NttDataSupplier.Domain.Models
         }
         public void RemovePhone(PhoneType phoneType)
         {
-            Validation.ValidateIfTrue(PhoneExist(phoneType), $"O tipo {phoneType} informado não existe para ser removido");
+            DomainValidation.ValidateIfTrue(PhoneExist(phoneType), $"O tipo {phoneType} informado não existe para ser removido");
             
             var phoneExist = _phones.Where(x => x.PhoneType == phoneType).FirstOrDefault();
             _phones.Remove(phoneExist);
@@ -64,7 +64,7 @@ namespace NttDataSupplier.Domain.Models
         }
         private void AddAddress(Address address)
         {
-            Validation.ValidateIfTrue(address == null, "É obrigatorio informar um endereço");
+            DomainValidation.ValidateIfTrue(address == null, "É obrigatorio informar um endereço");
             Address = address;
         }
 
@@ -74,10 +74,8 @@ namespace NttDataSupplier.Domain.Models
         }        
         private void AddEmail(Email email)
         {
-            Validation.ValidateIfTrue(email == null, "É obrigatorio informar um e-mail");
+            DomainValidation.ValidateIfTrue(email == null, "É obrigatorio informar um e-mail");
             Email = email;
         }
-
-        
     }
 }

@@ -20,7 +20,7 @@ namespace NttDataSupplier.Domain.Models
 
         public void SetImage(string value)
         {
-            Validation.ValidateIsNullOrEmpty(value, "A imagem informada é invalida");
+            DomainValidation.ValidateIsNullOrEmpty(value, "A imagem informada é invalida");
             ImagePath = value;
         }
     }
