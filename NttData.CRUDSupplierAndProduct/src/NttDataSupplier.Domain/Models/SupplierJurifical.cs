@@ -9,11 +9,24 @@ namespace NttDataSupplier.Domain.Models
         public DateTime OpenDate { get; private set; }
 
         protected SupplierJurifical() { }
+        public SupplierJurifical(string companyName, string cnpj, bool active, string fantasyName, Address address, Email email) 
+            : base(active, fantasyName, address, email)
+        {            
+            SetCompanyName(companyName);
+            SetCnpj(cnpj);            
+        }
 
-        public SupplierJurifical(string companyName, string cnpj)
+        public void SetCompanyName(string value)
         {
-            CompanyName = companyName;
-            Cnpj = cnpj;
+            CompanyName = value;
+        }
+        public void SetCnpj(string value)
+        {
+            Cnpj = value;
+        }
+        public void SetOpenDate(DateTime value)
+        {
+            OpenDate = value;
         }
     }
 }
