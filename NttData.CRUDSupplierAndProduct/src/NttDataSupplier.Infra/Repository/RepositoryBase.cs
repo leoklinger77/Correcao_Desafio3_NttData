@@ -52,6 +52,13 @@ namespace NttDataSupplier.Infra.Repository
         public async Task Update(T entity)
         {
             _dbSet.Update(entity);
+            await Task.CompletedTask;
+        }
+
+        public async Task Remove(T entity)
+        {
+            _dbSet.Remove(entity);
+            await Task.CompletedTask;
         }
 
         public async Task<int> SaveChanges()
@@ -63,5 +70,7 @@ namespace NttDataSupplier.Infra.Repository
         {
             _context?.Dispose();
         }
+
+        
     }
 }

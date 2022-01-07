@@ -11,6 +11,8 @@ namespace NttDataSupplier.Domain.Interfaces.Repositorys
 
         Task Insert(T entity);
         Task Update(T entity);
+        Task Remove(T entity);
+
         Task<T> Find(Expression<Func<T, bool>> expression);
 
         Task<int> SaveChanges();

@@ -3,6 +3,7 @@ using NttDataSupplier.Domain.Interfaces.Repositorys;
 using NttDataSupplier.Domain.Interfaces.Services;
 using NttDataSupplier.Domain.Models;
 using NttDataSupplier.Domain.Models.Validation;
+using NttDataSupplier.Domain.Tools;
 using System;
 using System.Threading.Tasks;
 
@@ -22,7 +23,7 @@ namespace NttDataSupplier.Domain.Services
             var result = await _categoryRepository.Find(x => x.Id == id);
 
             if (result == null) Notify("categoria não localizada");
-            
+
             return result;
         }
 
@@ -35,7 +36,7 @@ namespace NttDataSupplier.Domain.Services
         }
 
         public async Task Insert(Category category)
-        {            
+        {
             if (!RunValidation(new CategoryValidation(), category)) return;
 
             if (_categoryRepository.Find(x => x.Name.Contains(category.Name)).Result != null)
@@ -59,6 +60,21 @@ namespace NttDataSupplier.Domain.Services
             result.SetName(category.Name);
 
             await _categoryRepository.Update(result);
+            await _categoryRepository.SaveChanges();
+        }
+
+        public async Task Delete(Guid id)
+        {
+            if (id == Guid.Empty) throw new DomainException("Id invalido");
+
+            var result = await FindById(id);
+
+            if (result == null)
+            {
+                throw new DomainException("Categoria não localizada para remoção");
+            }
+
+            await _categoryRepository.Remove(result);
             await _categoryRepository.SaveChanges();
         }
     }

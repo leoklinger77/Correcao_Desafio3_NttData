@@ -52,24 +52,24 @@ namespace NttDataSupplier.WebApp.Controllers
 
             await _categoryService.Insert(_mapper.Map<Category>(viewModel));
 
-            if(OperationValid()) return View(viewModel);
+            if (OperationValid()) return View(viewModel);
 
             return RedirectToAction(nameof(Index));
         }
 
         [AllowAnonymous]
-        [HttpGet("nova-cagetoria/{id:guid}")]
+        [HttpGet("editar-cagetoria/{id:guid}")]
         public async Task<IActionResult> Edit(Guid id)
         {
             if (id == Guid.Empty) return BadRequest();
-            
+
             var result = await _categoryService.FindById(id);
 
             return View(_mapper.Map<EditCategoryViewModel>(result));
         }
 
         [AllowAnonymous]
-        [HttpPost("nova-cagetoria/{id:guid}")]
+        [HttpPost("editar-cagetoria/{id:guid}")]
         public async Task<IActionResult> Edit(Guid id, EditCategoryViewModel viewModel)
         {
             if (id == Guid.Empty || id != viewModel.Id) return BadRequest();
@@ -78,6 +78,40 @@ namespace NttDataSupplier.WebApp.Controllers
             await _categoryService.Update(_mapper.Map<Category>(viewModel));
 
             if (OperationValid()) return View(viewModel);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [AllowAnonymous]
+        [HttpGet("detalhe-cagetoria/{id:guid}")]
+        public async Task<IActionResult> Details(Guid id)
+        {
+            if (id == Guid.Empty) return BadRequest();
+
+            var result = await _categoryService.FindById(id);
+
+            return View(_mapper.Map<DetailsCategoryViewModel>(result));
+        }
+
+        [AllowAnonymous]
+        [HttpGet("deletar-cagetoria/{id:guid}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            if (id == Guid.Empty) return BadRequest();
+
+            var result = await _categoryService.FindById(id);
+
+            return View(_mapper.Map<DeleteCategoryViewModel>(result));
+        }
+
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        [HttpPost("editar-cagetoria")]
+        public async Task<IActionResult> DeleteConfirmation(DeleteCategoryViewModel viewModel)
+        {
+            if (viewModel.Id == Guid.Empty) return BadRequest();
+
+            await _categoryService.Delete(viewModel.Id);
 
             return RedirectToAction(nameof(Index));
         }
