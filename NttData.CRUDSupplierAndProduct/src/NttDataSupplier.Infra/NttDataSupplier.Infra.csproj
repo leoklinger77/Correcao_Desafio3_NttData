@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\NttDataSupplier.Domain\NttDataSupplier.Domain.csproj" />
+    <ProjectReference Include="..\NttDataSupplier.Domain\NttDataSupplier.Domain.csproj" />
   </ItemGroup>
 
 </Project>
