@@ -1,15 +1,13 @@
 ﻿using NttDataSupplier.Domain.Interfaces.Services;
 using NttDataSupplier.Domain.Models;
 using System;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace NttDataSupplier.Domain.Services
 {
     public abstract class ServiceBase<T> : IServiceBase<T> where T : Entity
-    {        
-
-        public async Task<T> Find(Expression<Func<T, bool>> expression)
+    {
+        public Task<T> FindById(Guid id)
         {
             throw new NotImplementedException();
         }
