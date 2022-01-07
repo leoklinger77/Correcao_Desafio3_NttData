@@ -10,8 +10,9 @@ namespace NttDataSupplier.WebApp.Configuration
         public AutoMapperConfiguration()
         {            
             CreateMap<NewCategoryViewModel, Category>();
-
+            CreateMap<Category, EditCategoryViewModel>().ReverseMap();
             CreateMap<Category, CategoryViewModel>();
+            
             CreateMap<PaginationModel<Category>, PaginationViewModel<CategoryViewModel>>();
         }
     }

@@ -1,0 +1,29 @@
+﻿@model EditCategoryViewModel
+@{
+    ViewData["Title"] = $"Editar Categoria: {Model.Name}";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Edit" method="post">
+
+    <input asp-for="Id" type="hidden">
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" type="text" class="form-control" placeholder="Nome da categoria">
+            <span asp-validation-for="Name" class="alert-danger"></span>
+        </div>        
+    </div>    
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</form>
+
+
+@section Scripts {
+
+            @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+
+}

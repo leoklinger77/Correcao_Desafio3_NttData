@@ -47,5 +47,19 @@ namespace NttDataSupplier.Domain.Services
 
             await _categoryRepository.SaveChanges();
         }
+
+        public async Task Update(Category category)
+        {
+            if (!RunValidation(new CategoryValidation(), category)) return;
+
+            var result = await FindById(category.Id);
+
+            if (result == null) return;
+
+            result.SetName(category.Name);
+
+            await _categoryRepository.Update(result);
+            await _categoryRepository.SaveChanges();
+        }
     }
 }

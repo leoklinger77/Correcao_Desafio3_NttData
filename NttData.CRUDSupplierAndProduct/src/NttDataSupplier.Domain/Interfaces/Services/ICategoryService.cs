@@ -6,5 +6,6 @@ namespace NttDataSupplier.Domain.Interfaces.Services
     public interface ICategoryService : IServiceBase<Category>
     {
         Task Insert(Category category);
+        Task Update(Category category);
     }
 }

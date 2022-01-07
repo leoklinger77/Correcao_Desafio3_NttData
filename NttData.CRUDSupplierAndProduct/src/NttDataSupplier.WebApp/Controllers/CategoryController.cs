@@ -7,6 +7,7 @@ using NttDataSupplier.Domain.Models;
 using NttDataSupplier.WebApp.Extensions;
 using NttDataSupplier.WebApp.Models;
 using NttDataSupplier.WebApp.Models.Category;
+using System;
 using System.Threading.Tasks;
 
 namespace NttDataSupplier.WebApp.Controllers
@@ -52,6 +53,31 @@ namespace NttDataSupplier.WebApp.Controllers
             await _categoryService.Insert(_mapper.Map<Category>(viewModel));
 
             if(OperationValid()) return View(viewModel);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [AllowAnonymous]
+        [HttpGet("nova-cagetoria/{id:guid}")]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            if (id == Guid.Empty) return BadRequest();
+            
+            var result = await _categoryService.FindById(id);
+
+            return View(_mapper.Map<EditCategoryViewModel>(result));
+        }
+
+        [AllowAnonymous]
+        [HttpPost("nova-cagetoria/{id:guid}")]
+        public async Task<IActionResult> Edit(Guid id, EditCategoryViewModel viewModel)
+        {
+            if (id == Guid.Empty || id != viewModel.Id) return BadRequest();
+            if (!ModelState.IsValid) return View(viewModel);
+
+            await _categoryService.Update(_mapper.Map<Category>(viewModel));
+
+            if (OperationValid()) return View(viewModel);
 
             return RedirectToAction(nameof(Index));
         }
