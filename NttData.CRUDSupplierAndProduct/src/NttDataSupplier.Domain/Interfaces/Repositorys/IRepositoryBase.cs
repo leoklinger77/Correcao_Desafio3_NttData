@@ -7,7 +7,7 @@ namespace NttDataSupplier.Domain.Interfaces.Repositorys
 {
     public interface IRepositoryBase<T> : IDisposable where T : Entity
     {
-        Task<PaginationModel<T>> Pagination(int page, int size, Expression<Func<T, bool>> expression);
+        Task<PaginationModel<T>> Pagination(int page, int size, Expression<Func<T, bool>> expression = null);
 
         Task Insert(T entity);
         Task Update(T entity);

@@ -16,5 +16,7 @@ namespace NttDataSupplier.WebApp.Extensions
             _notificationService = notificationService;
             _mapper = mapper;
         }
+
+        protected bool OperationValid() => _notificationService.HasError();
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace NttDataSupplier.Domain.Models
 {
@@ -10,7 +9,6 @@ namespace NttDataSupplier.Domain.Models
         public int PageIndex { get; set; }
         public int PageSize { get; set; }
         public string Query { get; set; }
-        public int TotalResult { get; set; }
-        public int TotalPages => (int)Math.Ceiling((double)TotalResult / PageSize);
+        public int TotalResult { get; set; }        
     }
 }

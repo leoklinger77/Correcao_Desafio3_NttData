@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using System;
 
 namespace NttDataSupplier.Domain.Models.Validation
 {
@@ -6,8 +7,12 @@ namespace NttDataSupplier.Domain.Models.Validation
     {
         public CategoryValidation()
         {
+            RuleFor(x => x.Id)
+                .Equal(Guid.Empty)
+                .WithMessage("Id inválido");
+
             RuleFor(x => x.Name)
-                .Length(2, 256)
+                .Length(2, 100)
                 .WithMessage("O nome deve conter entre 2 e 256 caracteres");
         }
     }
