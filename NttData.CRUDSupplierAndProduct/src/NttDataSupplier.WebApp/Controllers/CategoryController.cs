@@ -106,7 +106,7 @@ namespace NttDataSupplier.WebApp.Controllers
 
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        [HttpPost("editar-cagetoria")]
+        [HttpPost("deletar-cagetoria")]
         public async Task<IActionResult> DeleteConfirmation(DeleteCategoryViewModel viewModel)
         {
             if (viewModel.Id == Guid.Empty) return BadRequest();

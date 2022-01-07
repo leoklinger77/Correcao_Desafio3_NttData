@@ -1,0 +1,51 @@
+﻿@model NewSupplierViewModel
+
+<hr />
+<div class="form-row">
+    <div class="form-group col-md-3">
+        <label asp-for="Address.ZipCode"></label>
+        <input asp-for="Address.ZipCode" type="text" class="form-control">
+        <span asp-validation-for="Address.ZipCode" class="text-danger"></span>
+    </div>
+</div>
+<div class="form-row">
+    <div class="form-group col-md-8">
+        <label asp-for="Address.Street"></label>
+        <input asp-for="Address.Street" type="text" class="form-control">
+        <span asp-validation-for="Address.Street" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-4">
+        <label asp-for="Address.Number"></label>
+        <input asp-for="Address.Number" type="text" class="form-control">
+        <span asp-validation-for="Address.Street" class="text-danger"></span>
+    </div>
+</div>
+<div class="form-row">
+    <div class="form-group col-md-6">
+        <label asp-for="Address.Complement "></label>
+        <input asp-for="Address.Complement" type="text" class="form-control">
+        <span asp-validation-for="Address.Complement" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-6">
+        <label asp-for="Address.Reference"></label>
+        <input asp-for="Address.Reference" type="text" class="form-control">
+        <span asp-validation-for="Address.Reference" class="text-danger"></span>
+    </div>
+</div>
+<div class="form-row">
+    <div class="form-group col-md-4">
+        <label asp-for="Address.Neighborhood "></label>
+        <input asp-for="Address.Neighborhood" type="text" class="form-control">
+        <span asp-validation-for="Address.Neighborhood" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-4">
+        <label asp-for="Address.City"></label>
+        <input asp-for="Address.City" type="text" class="form-control">
+        <span asp-validation-for="Address.City" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-4">
+        <label asp-for="Address.State"></label>
+        <input asp-for="Address.State" type="text" class="form-control">
+        <span asp-validation-for="Address.State" class="text-danger"></span>
+    </div>
+</div>

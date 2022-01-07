@@ -4,5 +4,6 @@ namespace NttDataSupplier.Domain.Interfaces.Repositorys
 {
     public interface ISupplierRepository : IRepositoryBase<Supplier>
     {
+        
     }
 }

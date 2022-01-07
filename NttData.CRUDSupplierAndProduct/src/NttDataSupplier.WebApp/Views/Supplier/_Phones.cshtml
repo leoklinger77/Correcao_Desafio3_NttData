@@ -1,0 +1,20 @@
+﻿@model NewSupplierViewModel
+
+<hr />
+<div class="form-row">
+    <div class="form-group col-md-4">
+        <label asp-for="TelCelular"></label>
+        <input asp-for="TelCelular" type="text" class="form-control">
+        <span asp-validation-for="TelCelular" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-4">
+        <label asp-for="TelComercial"></label>
+        <input asp-for="TelComercial" type="text" class="form-control">
+        <span asp-validation-for="TelComercial" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-4">
+        <label asp-for="TelHome"></label>
+        <input asp-for="TelHome" type="text" class="form-control">
+        <span asp-validation-for="TelHome" class="text-danger"></span>
+    </div>
+</div>
