@@ -35,7 +35,7 @@ namespace NttDataSupplier.Domain.Services
         }
 
         public async Task Insert(Category category)
-        {
+        {            
             if (!RunValidation(new CategoryValidation(), category)) return;
 
             if (_categoryRepository.Find(x => x.Name.Contains(category.Name)).Result != null)

@@ -21,9 +21,13 @@ namespace NttDataSupplier.Infra.Repository
             _dbSet = _context.Set<T>();
         }
 
-        public async Task<PaginationModel<T>> Pagination(int page, int size, Expression<Func<T, bool>> expression)
+        public async Task<PaginationModel<T>> Pagination(int page, int size, Expression<Func<T, bool>> expression = null)
         {
-            IPagedList<T> pagedList = await _dbSet.Where(expression).AsNoTracking().ToPagedListAsync(page, size);
+            IPagedList<T> pagedList;
+            if (expression == null)
+                pagedList = await _dbSet.AsNoTracking().ToPagedListAsync(page, size);
+            else
+                pagedList = await _dbSet.Where(expression).AsNoTracking().ToPagedListAsync(page, size);
 
             return new PaginationModel<T>()
             {
@@ -58,6 +62,6 @@ namespace NttDataSupplier.Infra.Repository
         public void Dispose()
         {
             _context?.Dispose();
-        }        
+        }
     }
 }

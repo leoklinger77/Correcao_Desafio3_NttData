@@ -36,12 +36,14 @@ namespace NttDataSupplier.WebApp.Controllers
             return View(_mapper.Map<PaginationViewModel<CategoryViewModel>>(result));
         }
 
+        [AllowAnonymous]
         [HttpGet("nova-cagetoria")]
         public IActionResult New()
         {
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost("nova-cagetoria")]
         public async Task<IActionResult> New(NewCategoryViewModel viewModel)
         {

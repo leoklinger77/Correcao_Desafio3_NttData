@@ -8,7 +8,7 @@ namespace NttDataSupplier.Domain.Models.Validation
         public CategoryValidation()
         {
             RuleFor(x => x.Id)
-                .Equal(Guid.Empty)
+                .NotEqual(Guid.Empty)
                 .WithMessage("Id inválido");
 
             RuleFor(x => x.Name)
