@@ -13,6 +13,7 @@ namespace NttDataSupplier.Domain.Models
         public Address Address { get; private set; }
         public Email Email { get; private set; }
 
+
         private List<Phone> _phones = new List<Phone>();
         public IReadOnlyCollection<Phone> Phones => _phones;
         

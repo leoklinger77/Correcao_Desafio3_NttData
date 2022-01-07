@@ -3,14 +3,14 @@ using System;
 
 namespace NttDataSupplier.Domain.Models
 {
-    public class SupplierJurifical : Supplier
+    public class SupplierJuriDical : Supplier
     {
         public string CompanyName { get; private set; }
         public string Cnpj { get; private set; }
         public DateTime OpenDate { get; private set; }
 
-        protected SupplierJurifical() { }
-        public SupplierJurifical(string companyName, string cnpj, bool active, string fantasyName, Address address, Email email, Phone phone) 
+        protected SupplierJuriDical() { }
+        public SupplierJuriDical(string companyName, string cnpj, bool active, string fantasyName, Address address, Email email, Phone phone) 
             : base(active, fantasyName, address, email, phone)
         {            
             SetCompanyName(companyName);

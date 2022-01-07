@@ -11,7 +11,7 @@ namespace NttDataSupplier.Domain.Models
 
         public Supplier Supplier { get; private set; }
 
-        public Email() { }
+        protected Email() { }
 
         public Email(Guid supplierId, string emailAddress)
         {

@@ -2,7 +2,7 @@
 
 namespace NttDataSupplier.Domain.Models.Validation
 {
-    public class SupplierJuridicalValidation : AbstractValidator<SupplierJurifical>
+    public class SupplierJuridicalValidation : AbstractValidator<SupplierJuriDical>
     {
         public SupplierJuridicalValidation()
         {

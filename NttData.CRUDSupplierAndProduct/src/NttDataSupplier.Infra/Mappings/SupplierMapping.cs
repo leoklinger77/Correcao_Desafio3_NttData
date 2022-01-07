@@ -8,10 +8,7 @@ namespace NttDataSupplier.Infra.Mappings
     {
         public void Configure(EntityTypeBuilder<Supplier> builder)
         {
-            builder.HasKey(x => x.Id);
-
-            builder.Property(x => x.FantasyName)
-                .IsRequired();
+            builder.HasKey(x => x.Id);            
 
             builder.HasOne(x => x.Address).WithOne(x => x.Supplier);
             builder.HasOne(x => x.Email).WithOne(x => x.Supplier);

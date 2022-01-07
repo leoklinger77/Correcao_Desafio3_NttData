@@ -12,7 +12,7 @@ namespace NttDataSupplier.Infra.Data
         public NttDataContext(DbContextOptions<NttDataContext> options) : base(options) { }
 
         public DbSet<Supplier> Supplier { get; set; }
-        public DbSet<SupplierJurifical> SupplierJurifical { get; set; }
+        public DbSet<SupplierJuriDical> SupplierJurifical { get; set; }
         public DbSet<SupplierPhysical> SupplierPhysical { get; set; }
         public DbSet<Address> Address { get; set; }
         public DbSet<Phone> Phone { get; set; }

@@ -10,11 +10,7 @@ namespace NttDataSupplier.Infra.Mappings
         {
             builder.Property(x => x.FullName)
                 .IsRequired();
-
-           
-
-            builder.Property(x => x.Email)
-                .IsRequired();
+            
 
             builder.Property(x => x.Cpf)
                 .IsRequired()
