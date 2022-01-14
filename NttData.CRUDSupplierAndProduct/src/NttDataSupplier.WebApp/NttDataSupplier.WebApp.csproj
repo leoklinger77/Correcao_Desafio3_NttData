@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="11.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="ClosedXML" Version="0.95.4" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.22" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.22" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.22" />
@@ -20,6 +21,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NttDataSupplier.Infra\NttDataSupplier.Infra.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\temp\" />
+    <Folder Include="wwwroot\images\product\" />
+    <Folder Include="wwwroot\images\temp\" />
+    <Folder Include="wwwroot\ReportSheets_Temp\" />
+    <Folder Include="wwwroot\ReportSheets_Temp\" />
   </ItemGroup>
 
 </Project>

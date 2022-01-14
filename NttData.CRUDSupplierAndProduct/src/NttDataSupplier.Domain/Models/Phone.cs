@@ -14,7 +14,7 @@ namespace NttDataSupplier.Domain.Models
 
         public Supplier Supplier { get; private set; }
 
-        public Phone() { }
+        protected Phone() { }
 
         public Phone(Guid supplierId, string ddd, string number, PhoneType phoneType)
         {

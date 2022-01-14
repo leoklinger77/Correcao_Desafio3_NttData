@@ -7,6 +7,7 @@ namespace NttDataSupplier.Domain.Models
     public class Product : Entity
     {
         public Guid CategoryId { get; private set; }
+        public Guid SupplierId { get; private set; }
 
         public string Name { get; private set; }
         public string BarCode { get; private set; }
@@ -16,15 +17,18 @@ namespace NttDataSupplier.Domain.Models
         public decimal PricePurchase { get; private set; }
 
         public Category Category { get; private set; }
+        public Supplier Supplier { get; private set; }
+
 
 
         private List<Image> _image = new List<Image>();
         public IReadOnlyCollection<Image> Images => _image;
 
         protected Product() { }
-        public Product(Guid categoryId, string name, string barCode, int quantityStock, bool active, decimal priceSales, decimal pricePurchase)
+        public Product(Guid supplierId, Guid categoryId, string name, string barCode, int quantityStock, bool active, decimal priceSales, decimal pricePurchase)
         {
             CategoryId = categoryId;
+            SupplierId = supplierId;
             BarCode = barCode;
             Active = active;
             SetName(name);            
@@ -32,6 +36,11 @@ namespace NttDataSupplier.Domain.Models
             SetPricePurchase(pricePurchase);
             
             SetPriceSales(priceSales);            
+        }
+
+        public void AddImage(string path)
+        {
+            _image.Add(new Image(Id, path));
         }
 
         public void SetName(string value)

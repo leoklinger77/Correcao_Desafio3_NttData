@@ -5,14 +5,18 @@
 
 <h1>@ViewData["Title"]</h1>
 
+<br />
+<vc:summary></vc:summary>
+<br />
+
 <form asp-action="New" method="post">
     <div class="form-row">
         <div class="form-group col-md-6">
             <label asp-for="Name"></label>
             <input asp-for="Name" type="text" class="form-control" placeholder="Nome da categoria">
             <span asp-validation-for="Name" class="alert-danger"></span>
-        </div>        
-    </div>    
+        </div>
+    </div>
     <button type="submit" class="btn btn-success">Cadastrar</button>
     <a asp-action="Index" class="btn btn-primary">Voltar para lista</a>
 </form>

@@ -10,11 +10,13 @@ namespace NttDataSupplier.Domain.Models
         public DateTime OpenDate { get; private set; }
 
         protected SupplierJuriDical() { }
-        public SupplierJuriDical(string companyName, string cnpj, bool active, string fantasyName, Address address, Email email, Phone phone) 
-            : base(active, fantasyName, address, email, phone)
-        {            
+        public SupplierJuriDical(string companyName, string cnpj, bool active, string fantasyName, string zipCode, string street, string number, string neighborhood, string city, string state,
+                                string complement, string reference, string emailAddress, string ddd, string celCelular)
+                                    : base(active, fantasyName, zipCode, street, number, neighborhood, city, state,
+                                                complement, reference, emailAddress, ddd, celCelular)
+        {
             SetCompanyName(companyName);
-            SetCnpj(cnpj);            
+            SetCnpj(cnpj);
         }
 
         public void SetCompanyName(string value)
@@ -24,7 +26,7 @@ namespace NttDataSupplier.Domain.Models
         }
         public void SetCnpj(string value)
         {
-            DomainValidation.ValidateIsNullOrEmpty(value, "O cnpj é obrigatorio.");            
+            DomainValidation.ValidateIsNullOrEmpty(value, "O cnpj é obrigatorio.");
             Cnpj = value;
         }
         public void SetOpenDate(DateTime value)

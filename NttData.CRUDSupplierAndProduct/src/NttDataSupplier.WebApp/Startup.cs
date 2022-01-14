@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NttDataSupplier.WebApp.Configuration;
+using NttDataSupplier.WebApp.Extensions.Background;
 
 namespace NttDataSupplier.WebApp
 {
@@ -28,6 +29,8 @@ namespace NttDataSupplier.WebApp
             services.IdentityMyConfig();
             services.DbContextConfig(Configuration);
             services.InjectionConfig();
+
+            services.AddHostedService<Background>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

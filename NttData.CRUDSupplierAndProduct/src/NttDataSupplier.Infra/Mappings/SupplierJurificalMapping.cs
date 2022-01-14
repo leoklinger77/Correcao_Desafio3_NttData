@@ -7,13 +7,10 @@ namespace NttDataSupplier.Infra.Mappings
     public class SupplierJurificalMapping : IEntityTypeConfiguration<SupplierJuriDical>
     {
         public void Configure(EntityTypeBuilder<SupplierJuriDical> builder)
-        {
-            builder.Property(x => x.CompanyName)
-                .IsRequired();
+        {            
            
 
-            builder.Property(x => x.Cnpj)
-                .IsRequired()
+            builder.Property(x => x.Cnpj)                
                 .HasColumnType("varchar(14)");
         }
     }

@@ -11,8 +11,10 @@ namespace NttDataSupplier.Domain.Models
 
         protected SupplierPhysical() { }
 
-        public SupplierPhysical(string fullName, string cpf, bool active, string fantasyName, Address address, Email email, Phone phone) 
-            : base(active, fantasyName, address, email, phone)
+        public SupplierPhysical(string fullName, string cpf, bool active, string fantasyName, string zipCode, string street, string number, string neighborhood, string city, string state,
+                                string complement, string reference, string emailAddress, string ddd, string celCelular)
+                                    : base(active, fantasyName, zipCode, street, number, neighborhood, city, state,
+                                                complement, reference, emailAddress, ddd, celCelular)
         {
             SetFullName(fullName);
             SetCpf(cpf);

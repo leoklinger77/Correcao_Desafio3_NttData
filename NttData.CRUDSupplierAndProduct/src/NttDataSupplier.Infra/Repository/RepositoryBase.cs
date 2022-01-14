@@ -3,6 +3,7 @@ using NttDataSupplier.Domain.Interfaces.Repositorys;
 using NttDataSupplier.Domain.Models;
 using NttDataSupplier.Infra.Data;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace NttDataSupplier.Infra.Repository
 {
     public class RepositoryBase<T> : IRepositoryBase<T> where T : Entity
     {
-        private readonly NttDataContext _context;
+        protected readonly NttDataContext _context;
         protected DbSet<T> _dbSet;
 
         public RepositoryBase(NttDataContext context)
@@ -71,6 +72,14 @@ namespace NttDataSupplier.Infra.Repository
             _context?.Dispose();
         }
 
-        
+        public virtual Task<T> FindById(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<T>> FindAll()
+        {
+            return await _dbSet.AsNoTracking().ToListAsync();
+        }
     }
 }

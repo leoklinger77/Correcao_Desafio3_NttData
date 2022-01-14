@@ -1,0 +1,110 @@
+﻿@model NewOrEditSupplierViewModel
+@{
+    ViewData["Title"] = "Editar Fornecedor";
+    
+}
+<h1>@ViewData["Title"]</h1>
+<br />
+<vc:summary></vc:summary>
+<br />
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation" style="display:none">
+        <a class="nav-link active" id="juridical-tab" data-toggle="tab" href="#juridical" role="tab" aria-controls="home" aria-selected="true">Pessoa Juridica</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="physical-tab" data-toggle="tab" href="#physical" role="tab" aria-controls="profile" aria-selected="false">Pessoa Fisica</a>
+    </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+
+    <div class="tab-pane fade show active" id="juridical" role="tabpanel" aria-labelledby="home-tab">
+        <form asp-action="New" method="post">
+            <br />
+            <input asp-for="SupplierType" id="juridicalAttribute" type="hidden" />
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="FantasyName"></label>
+                    <input asp-for="FantasyName" type="text" class="form-control">
+                    <span asp-validation-for="FantasyName" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="CompanyName"></label>
+                    <input asp-for="CompanyName" type="text" class="form-control">
+                    <span asp-validation-for="CompanyName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="Cnpj"></label>
+                    <input asp-for="Cnpj" type="text" class="form-control cnpj">
+                    <span asp-validation-for="Cnpj" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="OpenDate"></label>
+                    <input asp-for="OpenDate" type="date" class="form-control">
+                    <span asp-validation-for="OpenDate" class="text-danger"></span>
+                </div>
+            </div>
+
+
+
+            <partial name="_Phones" model="Model" />
+            <partial name="_Address" model="Model" />
+
+
+            <button type="submit" class="btn btn-success">Cadastrar</button>
+            <a asp-action="Index" class="btn btn-primary">Voltar para lista</a>
+
+        </form>
+    </div>
+    <div class="tab-pane fade" id="physical" role="tabpanel" aria-labelledby="profile-tab">
+        <form asp-action="New" method="post">
+            <br />
+            <input asp-for="SupplierType" id="physicalAttribute" type="hidden" />
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="FantasyName"></label>
+                    <input asp-for="FantasyName" type="text" class="form-control">
+                    <span asp-validation-for="FantasyName" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="FullName"></label>
+                    <input asp-for="FullName" type="text" class="form-control">
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="Cpf"></label>
+                    <input asp-for="Cpf" type="text" class="form-control cpf">
+                    <span asp-validation-for="Cpf" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="BirthDate"></label>
+                    <input asp-for="BirthDate" type="date" class="form-control">
+                    <span asp-validation-for="BirthDate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <partial name="_Phones" model="Model" />
+            <partial name="_Address" model="Model" />
+
+            <button type="submit" class="btn btn-success">Cadastrar</button>
+            <a asp-action="Index" class="btn btn-primary">Voltar para lista</a>
+
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+
+        @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}

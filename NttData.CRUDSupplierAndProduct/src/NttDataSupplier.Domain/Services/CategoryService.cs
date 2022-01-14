@@ -5,6 +5,7 @@ using NttDataSupplier.Domain.Models;
 using NttDataSupplier.Domain.Models.Validation;
 using NttDataSupplier.Domain.Tools;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace NttDataSupplier.Domain.Services
@@ -76,6 +77,11 @@ namespace NttDataSupplier.Domain.Services
 
             await _categoryRepository.Remove(result);
             await _categoryRepository.SaveChanges();
+        }
+
+        public async Task<IEnumerable<Category>> ToList()
+        {
+            return await _categoryRepository.FindAll();
         }
     }
 }

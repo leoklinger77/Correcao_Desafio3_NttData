@@ -37,14 +37,14 @@ namespace NttDataSupplier.WebApp.Controllers
             return View(_mapper.Map<PaginationViewModel<CategoryViewModel>>(result));
         }
 
-        [AllowAnonymous]
+        [ClaimsAuthorizeAttribute("Categoria", "New")]
         [HttpGet("nova-cagetoria")]
         public IActionResult New()
         {
             return View();
         }
 
-        [AllowAnonymous]
+        [ClaimsAuthorizeAttribute("Categoria", "New")]
         [HttpPost("nova-cagetoria")]
         public async Task<IActionResult> New(NewCategoryViewModel viewModel)
         {
@@ -52,12 +52,12 @@ namespace NttDataSupplier.WebApp.Controllers
 
             await _categoryService.Insert(_mapper.Map<Category>(viewModel));
 
-            if (OperationValid()) return View(viewModel);
+            if (!OperationValid()) return View(viewModel);
 
             return RedirectToAction(nameof(Index));
         }
 
-        [AllowAnonymous]
+        [ClaimsAuthorizeAttribute("Categoria", "Edit")]
         [HttpGet("editar-cagetoria/{id:guid}")]
         public async Task<IActionResult> Edit(Guid id)
         {
@@ -68,7 +68,7 @@ namespace NttDataSupplier.WebApp.Controllers
             return View(_mapper.Map<EditCategoryViewModel>(result));
         }
 
-        [AllowAnonymous]
+        [ClaimsAuthorizeAttribute("Categoria", "Edit")]
         [HttpPost("editar-cagetoria/{id:guid}")]
         public async Task<IActionResult> Edit(Guid id, EditCategoryViewModel viewModel)
         {
@@ -77,7 +77,7 @@ namespace NttDataSupplier.WebApp.Controllers
 
             await _categoryService.Update(_mapper.Map<Category>(viewModel));
 
-            if (OperationValid()) return View(viewModel);
+            if (!OperationValid()) return View(viewModel);
 
             return RedirectToAction(nameof(Index));
         }
@@ -93,7 +93,7 @@ namespace NttDataSupplier.WebApp.Controllers
             return View(_mapper.Map<DetailsCategoryViewModel>(result));
         }
 
-        [AllowAnonymous]
+        [ClaimsAuthorizeAttribute("Categoria", "Delete")]
         [HttpGet("deletar-cagetoria/{id:guid}")]
         public async Task<IActionResult> Delete(Guid id)
         {
@@ -104,7 +104,7 @@ namespace NttDataSupplier.WebApp.Controllers
             return View(_mapper.Map<DeleteCategoryViewModel>(result));
         }
 
-        [AllowAnonymous]
+        [ClaimsAuthorizeAttribute("Categoria", "Delete")]
         [ValidateAntiForgeryToken]
         [HttpPost("deletar-cagetoria")]
         public async Task<IActionResult> DeleteConfirmation(DeleteCategoryViewModel viewModel)

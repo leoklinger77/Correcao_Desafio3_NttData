@@ -259,11 +259,9 @@ namespace NttDataSupplier.Infra.Migrations
                     b.HasBaseType("NttDataSupplier.Domain.Models.Supplier");
 
                     b.Property<string>("Cnpj")
-                        .IsRequired()
                         .HasColumnType("varchar(14)");
 
                     b.Property<string>("CompanyName")
-                        .IsRequired()
                         .HasColumnType("varchar(256)");
 
                     b.Property<DateTime>("OpenDate")
@@ -280,11 +278,9 @@ namespace NttDataSupplier.Infra.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Cpf")
-                        .IsRequired()
                         .HasColumnType("varchar(12)");
 
                     b.Property<string>("FullName")
-                        .IsRequired()
                         .HasColumnType("varchar(256)");
 
                     b.HasDiscriminator().HasValue("SupplierPhysical");

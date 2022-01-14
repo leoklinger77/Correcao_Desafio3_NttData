@@ -16,18 +16,19 @@ namespace NttDataSupplier.Domain.Models
 
         private List<Phone> _phones = new List<Phone>();
         public IReadOnlyCollection<Phone> Phones => _phones;
-        
+
         private List<Product> _products = new List<Product>();
         public IReadOnlyCollection<Product> Products => _products;
 
         protected Supplier() { }
-        protected Supplier(bool active, string fantasyName, Address address, Email email, Phone phone)
+        protected Supplier(bool active, string fantasyName, string zipCode, string street, string number, string neighborhood, string city, string state,
+                        string complement, string reference, string emailAddress, string ddd, string celCelular)
         {
             Active = active;
             FantasyName = fantasyName;
-            AddAddress(address);
-            AddEmail(email);            
-            AddPhone(phone);
+            AddAddress(new Address(Id, zipCode, street, number, neighborhood, city, state, complement, reference));
+            AddEmail(new Email(Id, emailAddress));
+            AddPhone(new Phone(Id, ddd, celCelular, PhoneType.Celular));
         }
 
         public void AddPhone(Phone phone)
@@ -47,7 +48,7 @@ namespace NttDataSupplier.Domain.Models
         public void RemovePhone(PhoneType phoneType)
         {
             DomainValidation.ValidateIfTrue(PhoneExist(phoneType), $"O tipo {phoneType} informado não existe para ser removido");
-            
+
             var phoneExist = _phones.Where(x => x.PhoneType == phoneType).FirstOrDefault();
             _phones.Remove(phoneExist);
 
@@ -59,7 +60,7 @@ namespace NttDataSupplier.Domain.Models
 
         public void UpdateAddress(string zipCode, string street, string number, string neighborhood, string city, string state,
                         string complement = null, string reference = null)
-        {   
+        {
             Address.SetAddress(zipCode, street, number, neighborhood, city, state,
                          complement, reference);
         }
@@ -70,9 +71,9 @@ namespace NttDataSupplier.Domain.Models
         }
 
         public void UpdateEmail(string email)
-        {            
+        {
             Email.SetEmail(email);
-        }        
+        }
         private void AddEmail(Email email)
         {
             DomainValidation.ValidateIfTrue(email == null, "É obrigatorio informar um e-mail");

@@ -1,20 +1,28 @@
-﻿@model NewSupplierViewModel
+﻿@model NewOrEditSupplierViewModel
+
+<div class="form-row">
+    <div class="form-group col-md-6">
+        <label asp-for="Email.EmailAddress"></label>
+        <input asp-for="Email.EmailAddress" type="text" class="form-control">
+        <span asp-validation-for="Email.EmailAddress" class="text-danger"></span>
+    </div>
+</div>
 
 <hr />
 <div class="form-row">
     <div class="form-group col-md-4">
         <label asp-for="TelCelular"></label>
-        <input asp-for="TelCelular" type="text" class="form-control">
+        <input asp-for="TelCelular" type="text" class="form-control mask_celular">
         <span asp-validation-for="TelCelular" class="text-danger"></span>
     </div>
     <div class="form-group col-md-4">
         <label asp-for="TelComercial"></label>
-        <input asp-for="TelComercial" type="text" class="form-control">
+        <input asp-for="TelComercial" type="text" class="form-control mask_celular">
         <span asp-validation-for="TelComercial" class="text-danger"></span>
     </div>
     <div class="form-group col-md-4">
         <label asp-for="TelHome"></label>
-        <input asp-for="TelHome" type="text" class="form-control">
+        <input asp-for="TelHome" type="text" class="form-control mask_fixo">
         <span asp-validation-for="TelHome" class="text-danger"></span>
     </div>
 </div>

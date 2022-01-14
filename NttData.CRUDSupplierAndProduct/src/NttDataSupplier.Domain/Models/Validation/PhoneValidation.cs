@@ -9,7 +9,7 @@ namespace NttDataSupplier.Domain.Models.Validation
         {
             RuleFor(x => x.Ddd)
                 .Length(2, 2)
-                .WithMessage("");
+                .WithMessage("O ddd deve conter 2 caracteres");
 
             When(x => x.PhoneType == PhoneType.Celular, () =>
             {

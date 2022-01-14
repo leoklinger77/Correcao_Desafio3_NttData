@@ -5,6 +5,7 @@ using NttDataSupplier.Domain.Interfaces.Services;
 using NttDataSupplier.Domain.Services;
 using NttDataSupplier.Infra.Data;
 using NttDataSupplier.Infra.Repository;
+using NttDataSupplier.WebApp.Extensions;
 
 namespace NttDataSupplier.WebApp.Configuration
 {
@@ -21,6 +22,10 @@ namespace NttDataSupplier.WebApp.Configuration
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ISupplierService, SupplierService>();
             services.AddScoped<INotificationService, NotificationService>();
+
+
+            services.AddScoped<IImageService, ImageService>();
+            services.AddScoped<Report>();
         }
     }
 }

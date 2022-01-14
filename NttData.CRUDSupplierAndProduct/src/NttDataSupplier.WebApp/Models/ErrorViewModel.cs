@@ -1,5 +1,3 @@
-using System;
-
 namespace NttDataSupplier.WebApp.Models
 {
     public class ErrorViewModel
