@@ -43,6 +43,7 @@ namespace NttDataSupplier.Domain.Services
             if (_categoryRepository.Find(x => x.Name.Contains(category.Name)).Result != null)
             {
                 Notify("O nome já existe para outra categoria");
+                return;
             }
 
             await _categoryRepository.Insert(category);
@@ -54,6 +55,12 @@ namespace NttDataSupplier.Domain.Services
         {
             if (!RunValidation(new CategoryValidation(), category)) return;
 
+            var validDb = await _categoryRepository.Find(x => x.Name.Contains(category.Name));
+            if (validDb != null && validDb.Id != category.Id)
+            {
+                Notify("O nome já existe para outra categoria");
+                return;
+            }
             var result = await FindById(category.Id);
 
             if (result == null) return;

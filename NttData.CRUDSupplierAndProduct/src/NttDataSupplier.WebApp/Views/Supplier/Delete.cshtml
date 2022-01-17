@@ -1,0 +1,73 @@
+﻿@model SupplierViewModel
+@{
+    ViewData["Title"] = "Remover fornecedor: " + @Model.FantasyName;
+}
+
+<h1>@ViewData["Title"]</h1>
+<vc:summary></vc:summary>
+<table>
+    <tr>
+        <td>Tipo Pessoa : </td>
+        <td><label>@Model.PersonType</label></td>
+    </tr>
+    <tr>
+        <td>Nome Fantasia : </td>
+        <td><label>@Model.FantasyName</label></td>
+    </tr>
+
+    @if (Model.PersonType == SupplierViewModel.Physical)
+    {
+        <tr>
+            <td>Nome Completo : </td>
+            <td><label>@Model.FullName</label></td>
+        </tr>
+        <tr>
+            <td>Cpf : </td>
+            <td><label>@Model.Cpf</label></td>
+        </tr>
+        <tr>
+            <td>Nascimento : </td>
+            <td><label>@Model.BirthDate</label></td>
+        </tr>
+    }
+    else
+    {
+        <tr>
+            <td>Razão social : </td>
+            <td><label>@Model.CompanyName</label></td>
+        </tr>
+        <tr>
+            <td>Cnpj : </td>
+            <td><label>@Model.Cnpj</label></td>
+        </tr>
+        <tr>
+            <td>Data de abertura : </td>
+            <td><label>@Model.OpenDate</label></td>
+        </tr>
+    }
+
+
+    <tr>
+        <td>Celular : </td>
+        <td><label>@Model.TelCelular</label></td>
+    </tr>
+    <tr>
+        <td>Fixo : </td>
+        <td><label>@Model.TelHome</label></td>
+    </tr>
+    <tr>
+        <td>Comercial : </td>
+        <td><label>@Model.TelComercial</label></td>
+    </tr>
+    <tr>
+        <td>Endereço : </td>
+        <td><label>@Model.Address?.ToString()</label></td>
+    </tr>
+</table>
+<form asp-action="ConfirmDelete" method="post">
+
+    <input type="hidden" asp-for="Id" />
+
+    <button type="submit" class="btn btn-danger">Excluir</button>
+    <a asp-action="Index" class="btn btn-primary">Voltar para lista</a>
+</form>

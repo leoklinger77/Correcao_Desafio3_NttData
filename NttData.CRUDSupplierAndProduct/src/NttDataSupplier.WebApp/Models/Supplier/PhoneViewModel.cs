@@ -1,5 +1,4 @@
 ﻿using NttDataSupplier.Domain.Models.enums;
-using System;
 
 namespace NttDataSupplier.WebApp.Models.Supplier
 {
@@ -9,5 +8,12 @@ namespace NttDataSupplier.WebApp.Models.Supplier
         public string Number { get; set; }
         public PhoneType PhoneType { get; set; }
 
+        public override string ToString()
+        {
+            if (!string.IsNullOrEmpty(Ddd) && !string.IsNullOrEmpty(Number))
+                return Ddd + Number;
+            else
+                return string.Empty;
+        }
     }
 }

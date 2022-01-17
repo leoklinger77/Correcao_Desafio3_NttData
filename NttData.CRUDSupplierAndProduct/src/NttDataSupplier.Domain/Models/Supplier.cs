@@ -8,7 +8,7 @@ namespace NttDataSupplier.Domain.Models
     public abstract class Supplier : Entity
     {
         public bool Active { get; private set; }
-        public string FantasyName { get; private set; }
+        public string FantasyName { get; protected set; }
 
         public Address Address { get; private set; }
         public Email Email { get; private set; }
@@ -31,13 +31,19 @@ namespace NttDataSupplier.Domain.Models
             AddPhone(new Phone(Id, ddd, celCelular, PhoneType.Celular));
         }
 
-        public void AddPhone(Phone phone)
+        public virtual void SetFantasyName(string value)
+        {
+            DomainValidation.ValidateIsNullOrEmpty(value, "O nome fantasia é obrigatorio.");
+            FantasyName = value;
+        }
+
+        public virtual void AddPhone(Phone phone)
         {
             DomainValidation.ValidateIfTrue(_phones.Count >= 3, "A quantidade máximo de telefones permitidos é 3");
 
             _phones.Add(phone);
         }
-        public void UpdatePhone(string ddd, string phone, PhoneType phoneType)
+        public virtual void UpdatePhone(string ddd, string phone, PhoneType phoneType)
         {
             DomainValidation.ValidateIfTrue(PhoneExist(phoneType), $"O tipo {phoneType} informado não existe para ser atualizado");
 
@@ -45,7 +51,7 @@ namespace NttDataSupplier.Domain.Models
             phoneExist.SetPhone(ddd, phone, phoneType);
 
         }
-        public void RemovePhone(PhoneType phoneType)
+        public virtual void RemovePhone(PhoneType phoneType)
         {
             DomainValidation.ValidateIfTrue(PhoneExist(phoneType), $"O tipo {phoneType} informado não existe para ser removido");
 
@@ -53,12 +59,12 @@ namespace NttDataSupplier.Domain.Models
             _phones.Remove(phoneExist);
 
         }
-        private bool PhoneExist(PhoneType phoneType)
+        public bool PhoneExist(PhoneType phoneType)
         {
             return _phones.Where(x => x.PhoneType == phoneType).FirstOrDefault() == null;
         }
 
-        public void UpdateAddress(string zipCode, string street, string number, string neighborhood, string city, string state,
+        public virtual void UpdateAddress(string zipCode, string street, string number, string neighborhood, string city, string state,
                         string complement = null, string reference = null)
         {
             Address.SetAddress(zipCode, street, number, neighborhood, city, state,
@@ -70,7 +76,7 @@ namespace NttDataSupplier.Domain.Models
             Address = address;
         }
 
-        public void UpdateEmail(string email)
+        public virtual void UpdateEmail(string email)
         {
             Email.SetEmail(email);
         }

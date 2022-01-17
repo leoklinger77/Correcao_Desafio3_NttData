@@ -21,11 +21,11 @@ namespace NttDataSupplier.WebApp.Extensions
         public async Task<string> GeneratorReport()
         {
             string name = Guid.NewGuid() + $"_{DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss")}.xlsx";
-            string caminhoArqCotacoes = GenerationDirectory + name;
+            string path = GenerationDirectory + name;
 
-            File.Copy(SpreadsheetTemplate, caminhoArqCotacoes);
+            File.Copy(SpreadsheetTemplate, path);
 
-            using (var workbook = new XLWorkbook(caminhoArqCotacoes))
+            using (var workbook = new XLWorkbook(path))
             {
                 var worksheet = workbook.Worksheets.Worksheet("Sheet1");
 
@@ -49,7 +49,7 @@ namespace NttDataSupplier.WebApp.Extensions
                     }
 
                     worksheet.Cell("A" + (2 + i)).Value =
-                           supplier.Id;
+                                               supplier.Id;
                     worksheet.Cell("B" + (2 + i)).Value =
                         supplier.FantasyName;
 
@@ -75,11 +75,14 @@ namespace NttDataSupplier.WebApp.Extensions
 
                         x++;
                     }
-                    
+
+
+
                     if (i == x)
                         i++;
                     else
                         i = x;
+
                 }
 
                 workbook.Save();

@@ -43,5 +43,10 @@ namespace NttDataSupplier.WebApp.Models.Supplier
         [StringLength(2, MinimumLength = 2, ErrorMessage = "O campo estado deve conter 2 caracteres.")]
         public string State { get; set; }
 
+        public override string ToString()
+        {
+            return $"{Street}, {Number} - {Neighborhood}, {City} - {State}, {ZipCode}";
+        }
+
     }
 }

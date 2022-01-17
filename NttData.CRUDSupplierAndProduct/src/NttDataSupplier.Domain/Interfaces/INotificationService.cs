@@ -9,7 +9,6 @@ namespace NttDataSupplier.Domain.Interfaces
     {
         void AddErro(string erro);
         bool HasError();
-        IEnumerable<Notification> AllError();
-        
+        IEnumerable<Notification> AllError();        
     }
 }

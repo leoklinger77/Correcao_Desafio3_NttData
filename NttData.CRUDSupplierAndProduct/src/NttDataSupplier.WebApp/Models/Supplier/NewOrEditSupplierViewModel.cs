@@ -1,7 +1,9 @@
-﻿using NttDataSupplier.WebApp.Extensions.DataAnnotation.Supplier;
+﻿using NttDataSupplier.Domain.Models.enums;
+using NttDataSupplier.WebApp.Extensions.DataAnnotation.Supplier;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace NttDataSupplier.WebApp.Models.Supplier
 {
@@ -18,6 +20,8 @@ namespace NttDataSupplier.WebApp.Models.Supplier
 
         [CnpjAttribute]
         public string Cnpj { get; set; }
+
+        [TodayCanNotAttribute]
         public DateTime OpenDate { get; set; }
 
         [FullNameAttribute]
@@ -25,6 +29,8 @@ namespace NttDataSupplier.WebApp.Models.Supplier
 
         [CpfAttribute]
         public string Cpf { get; set; }
+
+        [TodayCanNotAttribute]
         public DateTime BirthDate { get; set; }
 
         public SupplierType SupplierType { get; set; }
@@ -37,11 +43,33 @@ namespace NttDataSupplier.WebApp.Models.Supplier
         [StringLength(16, MinimumLength = 16, ErrorMessage = "O celular esta invalido")]
         public string TelCelular { get; set; }
 
-        [StringLength(15, MinimumLength = 15, ErrorMessage = "O telefone fixo esta invalido")]
+        [StringLength(14, MinimumLength = 14, ErrorMessage = "O telefone fixo esta invalido")]
         public string TelHome { get; set; }
 
         [StringLength(16, MinimumLength = 15, ErrorMessage = "O telefone comercial esta invalido")]
         public string TelComercial { get; set; }
+        
+        public void SetPhones()
+        {
+            SetCelular();
+            SetHome();
+            SetComercial();
+        }
+
+        private void SetCelular()
+        {
+            TelCelular = Phones.Where(x => x.PhoneType == PhoneType.Celular).FirstOrDefault() == null ? string.Empty : Phones.Where(x => x.PhoneType == PhoneType.Celular).First().ToString();
+        }
+
+        private void SetHome()
+        {
+            TelHome = Phones.Where(x => x.PhoneType == PhoneType.Fixo).FirstOrDefault() == null ? string.Empty : Phones.Where(x => x.PhoneType == PhoneType.Fixo).First().ToString();
+        }
+
+        private void SetComercial()
+        {
+            TelComercial = Phones.Where(x => x.PhoneType == PhoneType.Comercial).FirstOrDefault() == null ? string.Empty : Phones.Where(x => x.PhoneType == PhoneType.Comercial).First().ToString();
+        }
     }
 
     public enum SupplierType

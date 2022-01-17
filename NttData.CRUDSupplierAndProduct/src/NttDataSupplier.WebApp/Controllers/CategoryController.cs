@@ -52,8 +52,9 @@ namespace NttDataSupplier.WebApp.Controllers
 
             await _categoryService.Insert(_mapper.Map<Category>(viewModel));
 
-            if (!OperationValid()) return View(viewModel);
+            if (OperationValid()) return View(viewModel);
 
+            TempData["Success"] = "Cadastro realizado com sucesso";
             return RedirectToAction(nameof(Index));
         }
 
@@ -77,8 +78,9 @@ namespace NttDataSupplier.WebApp.Controllers
 
             await _categoryService.Update(_mapper.Map<Category>(viewModel));
 
-            if (!OperationValid()) return View(viewModel);
+            if (OperationValid()) return View(viewModel);
 
+            TempData["Success"] = "Cadastro editado com sucesso";
             return RedirectToAction(nameof(Index));
         }
 

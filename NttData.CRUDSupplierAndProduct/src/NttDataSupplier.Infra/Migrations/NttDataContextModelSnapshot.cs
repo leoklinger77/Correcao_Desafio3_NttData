@@ -210,7 +210,7 @@ namespace NttDataSupplier.Infra.Migrations
                     b.Property<int>("QuantityStock")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("SupplierId")
+                    b.Property<Guid>("SupplierId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("UpdateDate")
@@ -325,9 +325,10 @@ namespace NttDataSupplier.Infra.Migrations
                         .HasForeignKey("CategoryId")
                         .IsRequired();
 
-                    b.HasOne("NttDataSupplier.Domain.Models.Supplier", null)
+                    b.HasOne("NttDataSupplier.Domain.Models.Supplier", "Supplier")
                         .WithMany("Products")
-                        .HasForeignKey("SupplierId");
+                        .HasForeignKey("SupplierId")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

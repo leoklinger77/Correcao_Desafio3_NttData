@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using NttDataSupplier.WebApp.Extensions.DataAnnotation.Product;
 using NttDataSupplier.WebApp.Models.Category;
 using NttDataSupplier.WebApp.Models.Supplier;
 using System;
@@ -32,7 +33,8 @@ namespace NttDataSupplier.WebApp.Models.Product
 
         [Display(Name = "Preço de venda")]
         [Required(ErrorMessage = "O campo preço de venda é obrigatorio")]
-        [Range(0.1, double.MaxValue)]
+        [Range(0.2, double.MaxValue)]
+        [PriceSalesAttribute]
         public decimal PriceSales { get; set; }
 
         [Required(ErrorMessage = "O campo preço de compra é obrigatorio")]
@@ -88,5 +90,7 @@ namespace NttDataSupplier.WebApp.Models.Product
     public class NewImageViewModel
     {
         public string ImagePath { get; set; }
-    }
+    }    
+
+    
 }

@@ -40,6 +40,8 @@ namespace NttDataSupplier.Domain.Services
             return false;
         }
 
+        protected bool OperationValid() => _notificationService.HasError();
+
         protected void Notify(string error)
         {
             _notificationService.AddErro(error);

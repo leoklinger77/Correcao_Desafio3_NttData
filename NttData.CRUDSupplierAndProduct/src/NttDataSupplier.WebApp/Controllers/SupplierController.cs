@@ -19,10 +19,10 @@ namespace NttDataSupplier.WebApp.Controllers
     {
         private readonly ISupplierService _supplierService;
         private readonly Report _report;
-        public SupplierController(INotificationService notificationService, 
-                                    IMapper mapper, 
-                                    ISupplierService supplierService, 
-                                    Report report) 
+        public SupplierController(INotificationService notificationService,
+                                    IMapper mapper,
+                                    ISupplierService supplierService,
+                                    Report report)
                                     : base(notificationService, mapper)
         {
             _supplierService = supplierService;
@@ -52,87 +52,60 @@ namespace NttDataSupplier.WebApp.Controllers
             });
         }
 
-        [AllowAnonymous]
+        [ClaimsAuthorizeAttribute("Supplier", "Delete")]
         [HttpGet("novo-fornecedor")]
         public IActionResult New()
         {
             return View(new NewOrEditSupplierViewModel());
         }
 
-        [AllowAnonymous]
+        [ClaimsAuthorizeAttribute("Supplier", "Delete")]
         [HttpPost("novo-fornecedor")]
         public async Task<IActionResult> New(NewOrEditSupplierViewModel viewModel)
         {
             if (!ModelState.IsValid) return View(viewModel);
 
+            viewModel = RemoveMask(viewModel);
+            viewModel = MappingPhone(viewModel);
 
-            viewModel.Cnpj = viewModel.Cnpj?.Replace(".", "").Replace("-", "").Replace("/", "");
-            viewModel.Cpf = viewModel.Cpf?.Replace(".", "").Replace("-", "");
-            viewModel.TelCelular = viewModel.TelCelular.Replace(".", "").Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", ""); ;
-            viewModel.Address.ZipCode = viewModel.Address.ZipCode.Replace("-", "");
+            await _supplierService.Insert(MappingSupplier(viewModel));
 
-            viewModel.Phones.Add(new PhoneViewModel() { Ddd = viewModel.TelCelular[..2], Number = viewModel.TelCelular[2..], PhoneType = PhoneType.Celular });
+            if (OperationValid()) return View(viewModel);
 
-            if (!string.IsNullOrEmpty(viewModel.TelComercial))
-                viewModel.Phones.Add(new PhoneViewModel() { Ddd = viewModel.TelComercial[..2], Number = viewModel.TelComercial[2..], PhoneType = PhoneType.Comercial });
-
-            if (!string.IsNullOrEmpty(viewModel.TelHome))
-                viewModel.Phones.Add(new PhoneViewModel() { Ddd = viewModel.TelHome[..2], Number = viewModel.TelHome[2..], PhoneType = PhoneType.Fixo });
-
-            Supplier supplier;
-            if (!string.IsNullOrEmpty(viewModel.Cnpj))
-                supplier = _mapper.Map<SupplierJuriDical>(viewModel);
-            else
-                supplier = _mapper.Map<SupplierPhysical>(viewModel);
-
-            await _supplierService.Insert(supplier);
-
-            if (!OperationValid()) return View(viewModel);
-
+            TempData["Success"] = "Cadastro realizado com sucesso";
             return RedirectToAction(nameof(Index));
         }
 
-        [AllowAnonymous]
+        [ClaimsAuthorizeAttribute("Supplier", "Delete")]
         [HttpGet("novo-fornecedor/{id:guid}")]
         public async Task<IActionResult> Edit(Guid id)
         {
             if (id == Guid.Empty) return BadRequest();
+            var result = _mapper.Map<NewOrEditSupplierViewModel>(await _supplierService.FindById(id));
 
-            return View(_mapper.Map<NewOrEditSupplierViewModel>(await _supplierService.FindById(id)));
+            result.SetPhones();
+
+            return View(result);
         }
 
-        [AllowAnonymous]
+        [ClaimsAuthorizeAttribute("Supplier", "Delete")]
         [HttpPost("novo-fornecedor/{id:guid}")]
         public async Task<IActionResult> Edit(Guid id, NewOrEditSupplierViewModel viewModel)
         {
             if (id == Guid.Empty || id != viewModel.Id) return BadRequest();
 
+            ModelState.Remove("SupplierType");
             if (!ModelState.IsValid) return View(viewModel);
 
-            viewModel.Cnpj = viewModel.Cnpj?.Replace(".", "").Replace("-", "").Replace("/", "");
-            viewModel.Cpf = viewModel.Cpf?.Replace(".", "").Replace("-", "");
-            viewModel.TelCelular = viewModel.TelCelular.Replace(".", "").Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", ""); ;
-            viewModel.Address.ZipCode = viewModel.Address.ZipCode.Replace("-", "");
+            viewModel = RemoveMask(viewModel);
+            viewModel = MappingPhone(viewModel);
 
-            viewModel.Phones.Add(new PhoneViewModel() { Ddd = viewModel.TelCelular[..2], Number = viewModel.TelCelular[2..], PhoneType = PhoneType.Celular });
+            await _supplierService.Update(MappingSupplier(viewModel));
 
-            if (!string.IsNullOrEmpty(viewModel.TelComercial))
-                viewModel.Phones.Add(new PhoneViewModel() { Ddd = viewModel.TelComercial[..2], Number = viewModel.TelComercial[2..], PhoneType = PhoneType.Comercial });
+            if (OperationValid()) return View(viewModel);
 
-            if (!string.IsNullOrEmpty(viewModel.TelHome))
-                viewModel.Phones.Add(new PhoneViewModel() { Ddd = viewModel.TelHome[..2], Number = viewModel.TelHome[2..], PhoneType = PhoneType.Fixo });
-
-            Supplier supplier;
-            if (!string.IsNullOrEmpty(viewModel.Cnpj))
-                supplier = _mapper.Map<SupplierJuriDical>(viewModel);
-            else
-                supplier = _mapper.Map<SupplierPhysical>(viewModel);
-
-            await _supplierService.Insert(supplier);
-
-            if (!OperationValid()) return View(viewModel);
-
-            return RedirectToAction(nameof(Index));
+            TempData["Success"] = "Cadastro editado com sucesso";
+            return RedirectToAction(nameof(Edit));
         }
 
         [AllowAnonymous]
@@ -141,14 +114,89 @@ namespace NttDataSupplier.WebApp.Controllers
         {
             if (id == Guid.Empty) return BadRequest();
 
-            return View(_mapper.Map<NewOrEditSupplierViewModel>(await _supplierService.FindById(id)));
+            var result = _mapper.Map<SupplierViewModel>(await _supplierService.FindById(id));
+
+            if (OperationValid()) return RedirectToAction(nameof(Index));
+            result.SetPhones();
+            result.SetTypePerson();
+            return View(result);
         }
+
+        [ClaimsAuthorizeAttribute("Supplier", "Delete")]
+        [HttpGet("deletar-fornecedor/{id:guid}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            if (id == Guid.Empty) return BadRequest();
+
+            var result = _mapper.Map<SupplierViewModel>(await _supplierService.FindById(id));
+
+            if (OperationValid()) return RedirectToAction(nameof(Index));
+            result.SetPhones();
+            result.SetTypePerson();
+            return View(result);
+        }
+
+        [ClaimsAuthorizeAttribute("Supplier", "Delete")]
+        [HttpPost("deletar-fornecedor")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ConfirmDelete(Guid id)
+        {
+            if (id == Guid.Empty) return BadRequest();
+
+            await _supplierService.Delete(id);
+
+            if (OperationValid())
+            {
+                var result = _mapper.Map<SupplierViewModel>(await _supplierService.FindById(id));
+                result.SetPhones();
+                result.SetTypePerson();
+                return View(nameof(Delete), result);
+            }
+
+            TempData["Success"] = "Cadastro excluido com sucesso";
+            return RedirectToAction(nameof(Index));
+        }
+
 
         [AllowAnonymous]
         [HttpGet]
         public async Task<FileResult> Report()
         {
             return File(await _report.GeneratorReport(), "application/xlsx", "relatorio.xlsx");
+        }
+
+        private Supplier MappingSupplier(NewOrEditSupplierViewModel viewModel)
+        {
+            Supplier supplier;
+            if (!string.IsNullOrEmpty(viewModel.Cnpj))
+                supplier = _mapper.Map<SupplierJuriDical>(viewModel);
+            else
+                supplier = _mapper.Map<SupplierPhysical>(viewModel);
+
+            return supplier;
+        }
+        private NewOrEditSupplierViewModel MappingPhone(NewOrEditSupplierViewModel viewModel)
+        {
+            viewModel.Phones.Add(new PhoneViewModel() { Ddd = viewModel.TelCelular[..2], Number = viewModel.TelCelular[2..], PhoneType = PhoneType.Celular });
+
+            if (!string.IsNullOrEmpty(viewModel.TelComercial))
+                viewModel.Phones.Add(new PhoneViewModel() { Ddd = viewModel.TelComercial[..2], Number = viewModel.TelComercial[2..], PhoneType = PhoneType.Comercial });
+
+            if (!string.IsNullOrEmpty(viewModel.TelHome))
+                viewModel.Phones.Add(new PhoneViewModel() { Ddd = viewModel.TelHome[..2], Number = viewModel.TelHome[2..], PhoneType = PhoneType.Fixo });
+
+            return viewModel;
+        }
+        private NewOrEditSupplierViewModel RemoveMask(NewOrEditSupplierViewModel viewModel)
+        {
+            viewModel.Cnpj = viewModel.Cnpj?.Replace(".", "").Replace("-", "").Replace("/", "");
+            viewModel.Cpf = viewModel.Cpf?.Replace(".", "").Replace("-", "");
+            viewModel.TelCelular = viewModel.TelCelular?.Replace(".", "").Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", "");
+            viewModel.TelHome = viewModel.TelHome?.Replace(".", "").Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", ""); ;
+            viewModel.TelComercial = viewModel.TelComercial?.Replace(".", "").Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", "");
+            viewModel.Address.ZipCode = viewModel.Address.ZipCode?.Replace("-", "");
+
+            return viewModel;
         }
 
     }

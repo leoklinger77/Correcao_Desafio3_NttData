@@ -10,6 +10,7 @@ namespace NttDataSupplier.WebApp.Extensions.Background
     {
 
         public Background() { }
+        
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)
@@ -20,13 +21,13 @@ namespace NttDataSupplier.WebApp.Extensions.Background
                 foreach (FileInfo file in new DirectoryInfo(Directory.GetCurrentDirectory() + "/wwwroot/images/temp").GetFiles())
                     file.Delete();
 
-                await GeneratePdf();
+                await Time();
             }            
         }
 
-        private async Task GeneratePdf()
+        private async Task Time()
         {
-            await Task.Delay(TimeSpan.FromMinutes(1));
+            await Task.Delay(TimeSpan.FromSeconds(7));
         }
     }
 }

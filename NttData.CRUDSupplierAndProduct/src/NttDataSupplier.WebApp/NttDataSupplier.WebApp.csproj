@@ -25,7 +25,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\images\temp\" />
-    <Folder Include="wwwroot\images\product\" />
     <Folder Include="wwwroot\images\temp\" />
     <Folder Include="wwwroot\ReportSheets_Temp\" />
     <Folder Include="wwwroot\ReportSheets_Temp\" />

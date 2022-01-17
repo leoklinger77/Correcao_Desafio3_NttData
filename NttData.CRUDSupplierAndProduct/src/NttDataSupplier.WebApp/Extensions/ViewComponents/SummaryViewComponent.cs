@@ -17,7 +17,6 @@ namespace NttDataSupplier.WebApp.Extensions.ViewComponents
         {
             var result = _notificationService.AllError().Select(x => x.Erro).ToList();
             result.ForEach(x => ModelState.AddModelError(string.Empty, x));
-
             return View(result);
         }
     }

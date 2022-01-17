@@ -4,6 +4,7 @@ using NttDataSupplier.Domain.Interfaces.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace NttDataSupplier.WebApp.Extensions
 {
@@ -16,13 +17,28 @@ namespace NttDataSupplier.WebApp.Extensions
             _notificationService = notificationService;
         }
 
+        public async Task DeleteImage(List<string> file)
+        {
+            foreach (var item in file)
+            {
+                var fileExist = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/images/product/{item}");
+
+                if (!File.Exists(fileExist))
+                {
+                    _notificationService.AddErro("Ocorreu um erro ao salvar uma das fotos.");
+                }
+                File.Delete(fileExist);
+            }
+            await Task.CompletedTask;
+        }
+
         public void MoveTempToFixed(List<string> file)
         {
             foreach (var item in file)
             {
                 var filePathSource = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/images/temp/{item}");
                 var filePathDestination = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/images/product/{item}");
-                if (File.Exists(filePathSource))
+                if (!File.Exists(filePathSource))
                 {
                     _notificationService.AddErro("Ocorreu um erro ao salvar uma das fotos.");                    
                 }

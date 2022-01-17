@@ -10,9 +10,9 @@ namespace NttDataSupplier.Domain.Models.Validation
                 .Length(10, 256)
                 .WithMessage("O nome fantasia deve conter entre 10 e 256 caracteres");
 
-            RuleFor(x => x.Cpf)
+            RuleFor(x => x.FullName)
                 .Length(10, 256)
-                .WithMessage("O nome fantasia deve conter entre 10 e 256 caracteres");
+                .WithMessage("O nome completa deve conter entre 10 e 256 caracteres");
         }
     }
 }

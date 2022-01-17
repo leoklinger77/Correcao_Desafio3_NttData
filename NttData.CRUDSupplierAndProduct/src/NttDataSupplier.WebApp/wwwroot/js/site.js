@@ -34,6 +34,8 @@ $(document).ready(function () {
 });
 
 
+
+
 //Mask igorescobar
 //Doc https://igorescobar.github.io/jQuery-Mask-Plugin/
 $(document).ready(function () {
@@ -71,3 +73,66 @@ $(document).ready(function () {
     });
     $('.selectonfocus').mask("00/00/0000", { selectOnFocus: true });
 });
+
+
+//Pre visualização da imagem
+
+document.getElementById("ImageOne").onchange = function () {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+        // get loaded data and render thumbnail.
+        document.getElementById("previewImageOne").src = e.target.result;
+    };
+
+    // read the image file as a data URL.
+    reader.readAsDataURL(this.files[0]);
+};
+
+document.getElementById("ImageTwo").onchange = function () {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+        // get loaded data and render thumbnail.
+        document.getElementById("previewImageTwo").src = e.target.result;
+    };
+
+    // read the image file as a data URL.
+    reader.readAsDataURL(this.files[0]);
+};
+
+document.getElementById("ImageTree").onchange = function () {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+        // get loaded data and render thumbnail.
+        document.getElementById("previewImageTree").src = e.target.result;
+    };
+
+    // read the image file as a data URL.
+    reader.readAsDataURL(this.files[0]);
+};
+
+document.getElementById("ImageFor").onchange = function () {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+        // get loaded data and render thumbnail.
+        document.getElementById("previewImageFor").src = e.target.result;
+    };
+
+    // read the image file as a data URL.
+    reader.readAsDataURL(this.files[0]);
+};
+
+document.getElementById("ImageFive").onchange = function () {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+        // get loaded data and render thumbnail.
+        document.getElementById("previewImageFive").src = e.target.result;
+    };
+
+    // read the image file as a data URL.
+    reader.readAsDataURL(this.files[0]);
+};

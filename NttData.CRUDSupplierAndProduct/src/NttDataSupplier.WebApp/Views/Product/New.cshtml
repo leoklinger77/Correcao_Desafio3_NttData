@@ -7,7 +7,6 @@
 
 <br />
 <vc:summary></vc:summary>
-<br />
 
 <form asp-action="New" method="post" enctype="multipart/form-data">
 
@@ -17,7 +16,7 @@
             <select asp-for="SupplierId" asp-items="@(new SelectList(Model.ListSupplier,"Id","FantasyName"))" class="form-control">
                 <option></option>
             </select>
-            <span asp-validation-for="Supplier" class="alert-danger"></span>
+            <span asp-validation-for="SupplierId" class="alert-danger"></span>
         </div>
     </div>
 
@@ -76,35 +75,35 @@
 
         <div class="col-md-2">
             <input asp-for="ImageOne" type="file" class="input-file" />
-            <img src="~/images/@Model.GetImageOne()" class="img-thumbnail img-upload" />
+            <img src="~/images/@Model.GetImageOne()" class="img-thumbnail img-upload" id="previewImageOne" />
             <div class=" btn btn-danger btn-image-excluir">Excluir</div>            
             <span asp-validation-for="ImageOne" class="text-danger"></span>
         </div>
 
         <div class="col-md-2">
             <input asp-for="ImageTwo" type="file" class="input-file" />
-            <img src="~/images/@Model.GetImageTwo()" class="img-thumbnail img-upload" />
+            <img src="~/images/@Model.GetImageTwo()" class="img-thumbnail img-upload"  id="previewImageTwo" />
             <div class=" btn btn-danger btn-image-excluir">Excluir</div> 
             <span asp-validation-for="ImageTwo" class="text-danger"></span>
         </div>
 
         <div class="col-md-2">
             <input asp-for="ImageTree" type="file" class="input-file" />
-            <img src="~/images/@Model.GetImageTree()" class="img-thumbnail img-upload" />
+            <img src="~/images/@Model.GetImageTree()" class="img-thumbnail img-upload" id="previewImageTree" />
             <div class=" btn btn-danger btn-image-excluir">Excluir</div>   
             <span asp-validation-for="ImageTree" class="text-danger"></span>
         </div>
 
         <div class="col-md-2">
             <input asp-for="ImageFor" type="file" class="input-file" />
-            <img src="~/images/@Model.GetImageFor()" class="img-thumbnail img-upload" />
+            <img src="~/images/@Model.GetImageFor()" class="img-thumbnail img-upload" id="previewImageFor" />
             <div class=" btn btn-danger btn-image-excluir">Excluir</div> 
             <span asp-validation-for="ImageFor" class="text-danger"></span>
         </div>
 
         <div class="col-md-2">
             <input asp-for="ImageFive" type="file" class="input-file" />
-            <img src="~/images/@Model.GetImageFive()" class="img-thumbnail img-upload" />
+            <img src="~/images/@Model.GetImageFive()" class="img-thumbnail img-upload" id="previewImageFive" />
             <div class=" btn btn-danger btn-image-excluir">Excluir</div>  
             <span asp-validation-for="ImageFive" class="text-danger"></span>
         </div>

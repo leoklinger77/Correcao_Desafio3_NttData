@@ -5,6 +5,7 @@ using NttDataSupplier.Infra.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace NttDataSupplier.Infra.Repository
@@ -13,6 +14,16 @@ namespace NttDataSupplier.Infra.Repository
     {
         public SupplierRepository(NttDataContext context) : base(context)
         {
+        }
+
+        public async Task<SupplierJuriDical> Find(Expression<Func<SupplierJuriDical, bool>> expression)
+        {
+            return await _context.SupplierJurifical.Where(expression).AsNoTracking().FirstOrDefaultAsync();
+        }
+
+        public async Task<SupplierPhysical> Find(Expression<Func<SupplierPhysical, bool>> expression)
+        {
+            return await _context.SupplierPhysical.Where(expression).AsNoTracking().FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Supplier>> FindAllAndProduct()
@@ -50,9 +61,38 @@ namespace NttDataSupplier.Infra.Repository
             await _context.SupplierPhysical.AddAsync(physical);
         }
 
+        public async Task InsertPhone(Phone newPhone)
+        {
+            await _context.Phone.AddAsync(newPhone);
+        }
+
         public async Task InsertPhoneRanger(IEnumerable<Phone> phones)
         {
             await _context.Phone.AddRangeAsync(phones);
+        }
+
+        public async Task RemoveAddress(Address address)
+        {
+            _context.Address.Remove(address);
+            await Task.CompletedTask;
+        }
+
+        public async Task RemoveEmail(Email email)
+        {
+            _context.Email.Remove(email);
+            await Task.CompletedTask;
+        }
+
+        public async Task RemovePhone(Phone phoneRemove)
+        {
+            _context.Phone.Remove(phoneRemove);
+            await Task.CompletedTask;
+        }
+
+        public async Task RemoveRangePhone(List<Phone> list)
+        {
+            _context.Phone.RemoveRange(list);
+            await Task.CompletedTask;
         }
     }
 }

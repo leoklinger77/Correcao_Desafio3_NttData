@@ -8,7 +8,7 @@ namespace NttDataSupplier.Domain.Models
         public DateTime InsertDate { get; private set; }
         public DateTime? UpdateDate { get; private set; }
 
-        public Entity()
+        protected Entity()
         {
             Id = Guid.NewGuid();
         }

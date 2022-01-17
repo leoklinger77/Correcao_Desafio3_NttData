@@ -28,18 +28,25 @@ namespace NttDataSupplier.WebApp.Configuration
 
             
             
-            CreateMap<AddressViewModel, Address>();
-            CreateMap<EmailViewModel, Email>();
-            CreateMap<PhoneViewModel, Phone>();
+            CreateMap<AddressViewModel, Address>().ReverseMap();
+            CreateMap<EmailViewModel, Email>().ReverseMap();
+            CreateMap<PhoneViewModel, Phone>().ReverseMap();
 
             CreateMap<PaginationModel<Supplier>, PaginationViewModel<SupplierViewModel>>().ReverseMap();
 
             
-            CreateMap<Product, ProductViewModel>();
+            CreateMap<Product, ProductViewModel>();            
             CreateMap<NewProductViewModel, Product>();
-            CreateMap<NewImageViewModel, Image>();
+            CreateMap<NewImageViewModel, Image>();            
+            CreateMap<Image, ImageViewModel>();
+
+            CreateMap<EditProductViewModel, Product>().ReverseMap();
+            CreateMap<EditImageViewModel, Image>().ReverseMap();
 
             CreateMap<PaginationModel<Product>, PaginationViewModel<ProductViewModel>>().ReverseMap();
+
+           
+            
         }
     }
 }

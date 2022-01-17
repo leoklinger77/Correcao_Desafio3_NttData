@@ -19,13 +19,16 @@ namespace NttDataSupplier.Domain.Models
             SetFullName(fullName);
             SetCpf(cpf);
         }
-
+        public override void SetFantasyName(string value)
+        {
+            base.SetFantasyName(value);
+        }
         public void SetFullName(string value)
         {
             DomainValidation.ValidateIsNullOrEmpty(value, "O nome é obrigatorio.");
             FullName = value;
         }
-        public void SetCpf(string value)
+        private void SetCpf(string value)
         {            
             DomainValidation.ValidateIsNullOrEmpty(value, "O cpf é obrigatorio.");
             Cpf = value;
